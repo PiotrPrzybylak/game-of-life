@@ -2,30 +2,24 @@ package life;
 
 public class Life {
 
-	private char[][] initialBoard;
+	private char[][] board;
 
 	public void setInitialBoard(char[][] initialBoard) {
-		this.initialBoard = initialBoard;		
+		this.board = initialBoard;		
 	}
 
 	public void evolve() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public Object[] getCurrentBoard() {
-		
-		if (containsLife(initialBoard)) {
-			return new char[][] {
+		if (containsLife(board)) {
+			board = new char[][] {
 					{'.','.','.'},
 					{'.','*','.'},
 					{'.','.','.'}};
 		}
 		
-		return new char[][] {
-				{'.','.','.'},
-				{'.','.','.'},
-				{'.','.','.'}};
+	}
+
+	public Object[] getCurrentBoard() {		
+		return board;
 	}
 
 	private boolean containsLife(char[][] board) {

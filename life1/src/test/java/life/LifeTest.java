@@ -48,5 +48,25 @@ public class LifeTest {
 				{'.','.','.'},
 		}, life.getCurrentBoard());
 	}
+	
+	@Test
+	public void withoutEvolutionTheBoardShouldNotChange() {
+		// given
+		Life life = new Life();
+		life.setInitialBoard(new char[][] {
+				{'*','.','*'},
+				{'.','.','.'},
+				{'.','*','.'},
+		});
+		
+		// when
+				
+		// then
+		assertArrayEquals(new char[][] {
+				{'*','.','*'},
+				{'.','.','.'},
+				{'.','*','.'},
+		}, life.getCurrentBoard());
+	}
 
 }
