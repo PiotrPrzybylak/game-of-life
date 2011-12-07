@@ -9,7 +9,7 @@ public class Life {
 	}
 
 	public void evolve() {
-		char[][] newBoard = board.clone();
+		char[][] newBoard = new char[board.length][board[0].length];
 
 		for (int y = 0; y < board.length; y++) {
 			char[] row = board[y];
