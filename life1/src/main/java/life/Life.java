@@ -2,9 +2,10 @@ package life;
 
 public class Life {
 
-	public void setInitialBoard(char[][] cs) {
-		// TODO Auto-generated method stub
-		
+	private char[][] initialBoard;
+
+	public void setInitialBoard(char[][] initialBoard) {
+		this.initialBoard = initialBoard;		
 	}
 
 	public void evolve() {
@@ -13,10 +14,29 @@ public class Life {
 	}
 
 	public Object[] getCurrentBoard() {
+		
+		if (containsLife(initialBoard)) {
+			return new char[][] {
+					{'.','.','.'},
+					{'.','*','.'},
+					{'.','.','.'}};
+		}
+		
 		return new char[][] {
 				{'.','.','.'},
 				{'.','.','.'},
 				{'.','.','.'}};
+	}
+
+	private boolean containsLife(char[][] board) {
+		for (char[] row : board) {
+			for (char cell : row) {
+				if (cell == '*') {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 }

@@ -27,5 +27,26 @@ public class LifeTest {
 				{'.','.','.'},
 		}, life.getCurrentBoard());
 	}
+	
+	@Test
+	public void newCellShouldBeBornFromThreeNeigbours() {
+		// given
+		Life life = new Life();
+		life.setInitialBoard(new char[][] {
+				{'*','.','*'},
+				{'.','.','.'},
+				{'.','*','.'},
+		});
+		
+		// when
+		life.evolve();
+				
+		// then
+		assertArrayEquals(new char[][] {
+				{'.','.','.'},
+				{'.','*','.'},
+				{'.','.','.'},
+		}, life.getCurrentBoard());
+	}
 
 }
