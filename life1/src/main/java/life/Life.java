@@ -14,7 +14,7 @@ public class Life {
 		for (int y = 0; y < board.length; y++) {
 			char[] row = board[y];
 			for (int x = 0; x < row.length; x++) {
-				int liveNeigbours = countLiveNeigbours(x, y, board);
+				int liveNeigbours = LiveNeigboursCounter.countLiveNeigbours(x, y, board);
 
 				newBoard[y][x] = '.';
 				
@@ -30,26 +30,6 @@ public class Life {
 
 		board = newBoard;
 
-	}
-
-	private int countLiveNeigbours(int x, int y, char[][] board) {
-		int liveNeighbours = 0;
-		for (NeighbourgPosition neighbourgPosition : NeighbourgPosition.values()) {
-			int neighbourX = x + neighbourgPosition.getX();
-			int neighbourY = y + neighbourgPosition.getY();
-			if (neighbourX < 0 || neighbourY < 0) {
-				continue;
-			}
-
-			if (neighbourY >= board.length || neighbourX >= board[0].length) {
-				continue;
-			}
-
-			if (board[neighbourY][neighbourX] == '*') {
-				liveNeighbours++;
-			}
-		}
-		return 0;
 	}
 
 	public Object[] getCurrentBoard() {
