@@ -13,8 +13,10 @@ public class Life {
 	}
 
 	public Object[] getCurrentBoard() {
-		// TODO Auto-generated method stub
-		return null;
+		return new char[][] {
+				{'.','.','.'},
+				{'.','.','.'},
+				{'.','.','.'}};
 	}
 
 }

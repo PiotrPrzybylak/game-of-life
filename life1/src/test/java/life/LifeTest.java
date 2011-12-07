@@ -15,9 +15,7 @@ public class LifeTest {
 				{'.','.','.'},
 				{'.','.','.'},
 				{'.','.','.'},
-		}
-				
-		);
+		});
 		
 		// when
 		life.evolve();
