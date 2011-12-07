@@ -15,32 +15,38 @@ public class Life {
 			char[] row = board[y];
 			for (int x = 0; x < row.length; x++) {
 				int liveNeigbours = countLiveNeigbours(x, y, board);
+
+				newBoard[y][x] = '.';
+				
+				if (liveNeigbours == 3) {
+					newBoard[y][x] = '*';
+				}
+				
+				if (liveNeigbours == 2 && board[y][x] == '*') {
+					newBoard[y][x] = '*';
+				}
 			}
 		}
 
-		if (containsLife(board)) {
-			board = new char[][] {
-					{ '.', '.', '.' },
-					{ '.', '*', '.' },
-					{ '.', '.', '.' } };
-		}
+		board = newBoard;
 
 	}
 
 	private int countLiveNeigbours(int x, int y, char[][] board) {
-		for (NeigbourgPosition neigbourgPosition : NeigbourgPosition.values()) {
-			int neigbourX = x + neigbourgPosition.getX();
-			int neigbourY = y + neigbourgPosition.getY();
-			if (neigbourX < 0 || neigbourY < 0) {
+		int liveNeighbours = 0;
+		for (NeighbourgPosition neighbourgPosition : NeighbourgPosition.values()) {
+			int neighbourX = x + neighbourgPosition.getX();
+			int neighbourY = y + neighbourgPosition.getY();
+			if (neighbourX < 0 || neighbourY < 0) {
 				continue;
 			}
-			
-			if (neigbourY >= board.length || neigbourX >= board[0].length) {
+
+			if (neighbourY >= board.length || neighbourX >= board[0].length) {
 				continue;
 			}
-			
-			if (board[neigbourY][ neigbourX] == '*') {
-				
+
+			if (board[neighbourY][neighbourX] == '*') {
+				liveNeighbours++;
 			}
 		}
 		return 0;
