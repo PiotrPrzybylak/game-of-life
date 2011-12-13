@@ -2,11 +2,11 @@ package life;
 
 public class LiveNeigboursCounter {
 
-	static int countLiveNeigbours(int x, int y, char[][] board) {
+	static int countLiveNeigbours(int x, RowNumber y, char[][] board) {
 		int liveNeighbours = 0;
 		for (NeighbourgPosition neighbourgPosition : NeighbourgPosition.values()) {
 			int neighbourX = x + neighbourgPosition.getX();
-			int neighbourY = y + neighbourgPosition.getY();
+			int neighbourY = y.getValue() + neighbourgPosition.getY();
 			liveNeighbours = increamentCounterIfNeighbourIsAlive(board, liveNeighbours, neighbourX, neighbourY);
 		}
 		return liveNeighbours;

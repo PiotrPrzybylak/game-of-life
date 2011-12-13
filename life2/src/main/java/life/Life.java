@@ -13,31 +13,31 @@ public class Life {
 
 		for (int y = 0; y < board.length; y++) {
 			char[] row = board[y];
-			interateColumns(newBoard, y, row);
+			interateColumns(newBoard, new RowNumber(y), row);
 		}
 
 		board = newBoard;
 
 	}
 
-	private void interateColumns(char[][] newBoard, int y, char[] row) {
+	private void interateColumns(char[][] newBoard, RowNumber y, char[] row) {
 		for (int x = 0; x < row.length; x++) {
 			int liveNeigbours = LiveNeigboursCounter.countLiveNeigbours(x, y, board);
-			newBoard[y][x] = '.';			
-			spawnCellToLife(newBoard, y, x, liveNeigbours);			
-			leaveCellAlive(newBoard, y, x, liveNeigbours);
+			newBoard[y.getValue()][x] = '.';			
+			spawnCellToLife(newBoard, y, new ColumnNumber(x), new LiveNeigboursNumber(liveNeigbours));			
+			leaveCellAlive(newBoard, y, new ColumnNumber(x), new LiveNeigboursNumber(liveNeigbours));
 		}
 	}
 
-	private void leaveCellAlive(char[][] newBoard, int y, int x, int liveNeigbours) {
-		if (liveNeigbours == 2 && board[y][x] == '*') {
-			newBoard[y][x] = '*';
+	private void leaveCellAlive(char[][] newBoard, RowNumber y, ColumnNumber x, LiveNeigboursNumber liveNeigbours) {
+		if (liveNeigbours.getValue() == 2 && board[y.getValue()][x.getValue()] == '*') {
+			newBoard[y.getValue()][x.getValue()] = '*';
 		}
 	}
 
-	private void spawnCellToLife(char[][] newBoard, int y, int x, int liveNeigbours) {
-		if (liveNeigbours == 3) {
-			newBoard[y][x] = '*';
+	private void spawnCellToLife(char[][] newBoard, RowNumber y, ColumnNumber x, LiveNeigboursNumber liveNeigbours) {
+		if (liveNeigbours.getValue() == 3) {
+			newBoard[y.getValue()][x.getValue()] = '*';
 		}
 	}
 

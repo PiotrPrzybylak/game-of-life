@@ -19,7 +19,7 @@ public class LiveNeigboursCounterTest {
 		
 		
 		// when
-		int liveNeigbours = LiveNeigboursCounter.countLiveNeigbours(1, 1, board);
+		int liveNeigbours = LiveNeigboursCounter.countLiveNeigbours(1, new RowNumber(1), board);
 		
 		// then
 		assertEquals(3, liveNeigbours);
