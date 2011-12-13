@@ -13,38 +13,36 @@ public class Life {
 
 		for (int y = 0; y < board.length; y++) {
 			char[] row = board[y];
-			for (int x = 0; x < row.length; x++) {
-				int liveNeigbours = LiveNeigboursCounter.countLiveNeigbours(x, y, board);
-
-				newBoard[y][x] = '.';
-				
-				if (liveNeigbours == 3) {
-					newBoard[y][x] = '*';
-				}
-				
-				if (liveNeigbours == 2 && board[y][x] == '*') {
-					newBoard[y][x] = '*';
-				}
-			}
+			interateColumns(newBoard, y, row);
 		}
 
 		board = newBoard;
 
 	}
 
-	public Object[] getCurrentBoard() {
-		return board;
+	private void interateColumns(char[][] newBoard, int y, char[] row) {
+		for (int x = 0; x < row.length; x++) {
+			int liveNeigbours = LiveNeigboursCounter.countLiveNeigbours(x, y, board);
+			newBoard[y][x] = '.';			
+			spawnCellToLife(newBoard, y, x, liveNeigbours);			
+			leaveCellAlive(newBoard, y, x, liveNeigbours);
+		}
 	}
 
-	private boolean containsLife(char[][] board) {
-		for (char[] row : board) {
-			for (char cell : row) {
-				if (cell == '*') {
-					return true;
-				}
-			}
+	private void leaveCellAlive(char[][] newBoard, int y, int x, int liveNeigbours) {
+		if (liveNeigbours == 2 && board[y][x] == '*') {
+			newBoard[y][x] = '*';
 		}
-		return false;
+	}
+
+	private void spawnCellToLife(char[][] newBoard, int y, int x, int liveNeigbours) {
+		if (liveNeigbours == 3) {
+			newBoard[y][x] = '*';
+		}
+	}
+
+	public Object[] getCurrentBoard() {
+		return board;
 	}
 
 }

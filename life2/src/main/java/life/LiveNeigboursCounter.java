@@ -7,19 +7,35 @@ public class LiveNeigboursCounter {
 		for (NeighbourgPosition neighbourgPosition : NeighbourgPosition.values()) {
 			int neighbourX = x + neighbourgPosition.getX();
 			int neighbourY = y + neighbourgPosition.getY();
-			if (neighbourX < 0 || neighbourY < 0) {
-				continue;
-			}
-	
-			if (neighbourY >= board.length || neighbourX >= board[0].length) {
-				continue;
-			}
-	
-			if (board[neighbourY][neighbourX] == '*') {
-				liveNeighbours++;
-			}
+			liveNeighbours = increamentCounterIfNeighbourIsAlive(board, liveNeighbours, neighbourX, neighbourY);
 		}
 		return liveNeighbours;
+	}
+
+	private static int increamentCounterIfNeighbourIsAlive(char[][] board, int liveNeighbours, int neighbourX,
+			int neighbourY) {
+		boolean outOfBoardBound = isOutOfBoardBound(board, neighbourX, neighbourY);
+		if (outOfBoardBound) {
+			return liveNeighbours;
+		}
+
+		if (board[neighbourY][neighbourX] == '*') {
+			liveNeighbours++;
+		}
+		return liveNeighbours;
+	}
+
+	private static boolean isOutOfBoardBound(char[][] board, int neighbourX, int neighbourY)
+		{
+		if (neighbourX < 0 || neighbourY < 0) {
+			return true;
+		}
+
+		if (neighbourY >= board.length || neighbourX >= board[0].length) {
+			return true;
+		}
+		
+		return false;
 	}
 
 }
