@@ -25,7 +25,7 @@ public class LiveNeigboursCounter {
 		return liveNeighbours;
 	}
 
-	private static boolean isOutOfBoardBound(Cell[][] board, int neighbourX, int neighbourY)
+	public static boolean isOutOfBoardBound(Cell[][] board, int neighbourX, int neighbourY)
 		{
 		if (neighbourX < 0 || neighbourY < 0) {
 			return true;

@@ -25,5 +25,25 @@ public class LiveNeigboursCounterTest {
 		assertEquals(3, liveNeigbours);
 		
 	}
+	
+	@Test
+	public void shouldCheckBoundaries()  {
+		
+		//given
+		char[][] board = new char[][] {
+				{'*','.','*'},
+		};
+
+		assertFalse(LiveNeigboursCounter.isOutOfBoardBound(Life.translateBoard(board), 0, 0));
+		assertFalse(LiveNeigboursCounter.isOutOfBoardBound(Life.translateBoard(board), 1, 0));
+		assertFalse(LiveNeigboursCounter.isOutOfBoardBound(Life.translateBoard(board), 2, 0));
+
+		assertTrue(LiveNeigboursCounter.isOutOfBoardBound(Life.translateBoard(board), 1, 1));
+		assertTrue(LiveNeigboursCounter.isOutOfBoardBound(Life.translateBoard(board), 0, 1));
+
+		
+		
+	}
+	
 
 }
