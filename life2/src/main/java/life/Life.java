@@ -2,17 +2,36 @@ package life;
 
 public class Life {
 
-	private char[][] board;
+	private Cell[][] board;
 
 	public void setInitialBoard(char[][] initialBoard) {
-		this.board = initialBoard;
+		
+		Cell[][] newBoard = translateBoard(initialBoard);
+
+		board = newBoard;
+	}
+
+	public static Cell[][] translateBoard(char[][] initialBoard) {
+		Cell[][] newBoard = new Cell[initialBoard.length][initialBoard[0].length];
+
+		for (int y = 0; y < initialBoard.length; y++) {
+			char[] row = initialBoard[y];
+			createColums(newBoard, new RowNumber(y), row);
+		}
+		return newBoard;
+	}
+
+	private static void createColums(Cell[][] newBoard, RowNumber rowNumber, char[] row) {
+		for (int x = 0; x < row.length; x++) {
+			newBoard[rowNumber.getValue()][x] = new Cell(row[x]);
+		}
 	}
 
 	public void evolve() {
-		char[][] newBoard = new char[board.length][board[0].length];
+		Cell[][] newBoard = new Cell[board.length][board[0].length];
 
 		for (int y = 0; y < board.length; y++) {
-			char[] row = board[y];
+			Cell[] row = board[y];
 			interateColumns(newBoard, new RowNumber(y), row);
 		}
 
@@ -20,29 +39,45 @@ public class Life {
 
 	}
 
-	private void interateColumns(char[][] newBoard, RowNumber y, char[] row) {
+	private void interateColumns(Cell[][] newBoard, RowNumber y, Cell[] row) {
 		for (int x = 0; x < row.length; x++) {
-			int liveNeigbours = LiveNeigboursCounter.countLiveNeigbours(x, y, board);
-			newBoard[y.getValue()][x] = '.';			
+			int liveNeigbours = LiveNeigboursCounter.countLiveNeigbours(new ColumnNumber(x), y, board);
+			newBoard[y.getValue()][x] = new Cell('.');			
 			spawnCellToLife(newBoard, y, new ColumnNumber(x), new LiveNeigboursNumber(liveNeigbours));			
 			leaveCellAlive(newBoard, y, new ColumnNumber(x), new LiveNeigboursNumber(liveNeigbours));
 		}
 	}
 
-	private void leaveCellAlive(char[][] newBoard, RowNumber y, ColumnNumber x, LiveNeigboursNumber liveNeigbours) {
-		if (liveNeigbours.getValue() == 2 && board[y.getValue()][x.getValue()] == '*') {
-			newBoard[y.getValue()][x.getValue()] = '*';
+	private void leaveCellAlive(Cell[][] newBoard, RowNumber y, ColumnNumber x, LiveNeigboursNumber liveNeigbours) {
+		if (liveNeigbours.getValue() == 2 && board[y.getValue()][x.getValue()].value() == '*') {
+			newBoard[y.getValue()][x.getValue()] = new Cell('*');
 		}
 	}
 
-	private void spawnCellToLife(char[][] newBoard, RowNumber y, ColumnNumber x, LiveNeigboursNumber liveNeigbours) {
+	private void spawnCellToLife(Cell[][] newBoard, RowNumber y, ColumnNumber x, LiveNeigboursNumber liveNeigbours) {
 		if (liveNeigbours.getValue() == 3) {
-			newBoard[y.getValue()][x.getValue()] = '*';
+			newBoard[y.getValue()][x.getValue()] = new Cell('*');
 		}
 	}
 
-	public Object[] getCurrentBoard() {
-		return board;
+	public char[][] getCurrentBoard() {
+		return translateBoard(board);
+	}
+
+	private char[][] translateBoard(Cell[][] board2) {
+		char[][] newBoard = new char[board2.length][board2[0].length];
+
+		for (int y = 0; y < board2.length; y++) {
+			Cell[] row = board2[y];
+			createColums(newBoard, new RowNumber(y), row);
+		}
+		return newBoard;
+	}
+
+	private void createColums(char[][] newBoard, RowNumber rowNumber, Cell[] row) {
+		for (int x = 0; x < row.length; x++) {
+			newBoard[rowNumber.getValue()][x] = row[x].value();
+		}		
 	}
 
 }
