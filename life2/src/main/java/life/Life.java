@@ -2,13 +2,13 @@ package life;
 
 public class Life {
 
-	private Cell[][] board;
+	private World world = new World();
 
 	public void setInitialBoard(char[][] initialBoard) {
 		
 		Cell[][] newBoard = translateBoard(initialBoard);
 
-		board = newBoard;
+		world.board = newBoard;
 	}
 
 	public static Cell[][] translateBoard(char[][] initialBoard) {
@@ -28,20 +28,20 @@ public class Life {
 	}
 
 	public void evolve() {
-		Cell[][] newBoard = new Cell[board.length][board[0].length];
+		Cell[][] newBoard = new Cell[world.board.length][world.board[0].length];
 
-		for (int y = 0; y < board.length; y++) {
-			Cell[] row = board[y];
+		for (int y = 0; y < world.board.length; y++) {
+			Cell[] row = world.board[y];
 			interateColumns(newBoard, new RowNumber(y), row);
 		}
 
-		board = newBoard;
+		world.board = newBoard;
 
 	}
 
 	private void interateColumns(Cell[][] newBoard, RowNumber y, Cell[] row) {
 		for (int x = 0; x < row.length; x++) {
-			int liveNeigbours = LiveNeigboursCounter.countLiveNeigbours(new ColumnNumber(x), y, board);
+			int liveNeigbours = LiveNeigboursCounter.countLiveNeigbours(new ColumnNumber(x), y, world.board);
 			newBoard[y.getValue()][x] = new Cell('.');			
 			spawnCellToLife(newBoard, y, new ColumnNumber(x), new LiveNeigboursNumber(liveNeigbours));			
 			leaveCellAlive(newBoard, y, new ColumnNumber(x), new LiveNeigboursNumber(liveNeigbours));
@@ -49,7 +49,7 @@ public class Life {
 	}
 
 	private void leaveCellAlive(Cell[][] newBoard, RowNumber y, ColumnNumber x, LiveNeigboursNumber liveNeigbours) {
-		if (liveNeigbours.getValue() == 2 && board[y.getValue()][x.getValue()].value() == '*') {
+		if (liveNeigbours.getValue() == 2 && world.board[y.getValue()][x.getValue()].value() == '*') {
 			newBoard[y.getValue()][x.getValue()] = new Cell('*');
 		}
 	}
@@ -61,7 +61,7 @@ public class Life {
 	}
 
 	public char[][] getCurrentBoard() {
-		return translateBoard(board);
+		return translateBoard(world.board);
 	}
 
 	private char[][] translateBoard(Cell[][] board2) {
