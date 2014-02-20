@@ -58,5 +58,16 @@ public class Life {
             cell = cell.addNeigbour();
         }
         cell.addYourselfToNewWorld(newWorld);
+
+
+        //spawnSomeKids();
+        for (Place potentialNewbornPlace : placesForNeighbours) {
+            Cell potentialNewborn = new DeadCellWith0Neighbours(potentialNewbornPlace);
+            final Collection<Place> neighboursOfPotentialNewBorn = CollectionUtils.intersection(oldWorld, potentialNewbornPlace.getNeighbours());
+            for (Place neighbour : neighboursOfPotentialNewBorn) {
+                potentialNewborn = potentialNewborn.addNeigbour();
+            }
+            potentialNewborn.addYourselfToNewWorld(newWorld);
+        }
     }
 }
