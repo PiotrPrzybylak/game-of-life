@@ -11,7 +11,7 @@ public class LiveCellWith1Neighbour implements Cell {
 
     @Override
     public Cell addNeigbour() {
-        return new LiveCellWith2Neighbour(place);
+        return new LiveCellWith2Neighbours(place);
     }
 
     @Override

@@ -109,6 +109,6 @@ public class LifeTest {
 				{'.','.','.'},
 				{'.','.','.'},
 		}, life.getCurrentBoard());
-	}		
+	}
 	
 }

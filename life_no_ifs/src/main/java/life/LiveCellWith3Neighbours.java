@@ -2,10 +2,10 @@ package life;
 
 import java.util.HashSet;
 
-public class LiveCellWith3Neighbour implements Cell {
+public class LiveCellWith3Neighbours implements Cell {
     private final Place place;
 
-    public LiveCellWith3Neighbour(Place place) {
+    public LiveCellWith3Neighbours(Place place) {
         this.place = place;
     }
 
