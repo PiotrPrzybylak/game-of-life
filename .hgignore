@@ -2,3 +2,4 @@ glob:bin/
 syntax: glob
 life_no_ifs/.idea
 life_no_ifs/life-no-ifs.iml
+life_no_ifs/target/
