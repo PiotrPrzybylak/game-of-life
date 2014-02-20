@@ -23,7 +23,19 @@ public class Life {
     }
 
     public char[][] getCurrentBoard() {
-        return null;
+        char[][] board = new char[3][3];
+        for (int rowNumber = 0; rowNumber < board.length;  rowNumber++) {
+            char[] row = board[rowNumber];
+            for (int columnNumber = 0; columnNumber < row.length; columnNumber++) {
+                board[rowNumber][columnNumber] = '.';
+            }
+        }
+
+
+        for (Place place : world) {
+            board[place.getRowNumber()][place.getColumnNumber()]='*';
+        }
+        return board;
     }
 
     public void evolve() {
