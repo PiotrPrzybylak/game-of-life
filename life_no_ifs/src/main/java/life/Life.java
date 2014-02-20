@@ -39,6 +39,10 @@ public class Life {
     }
 
     public void evolve() {
-
+        final HashSet<Place> newWorld = new HashSet<Place>();
+        for(Place cell: world) {
+            cell.evolve(world, newWorld);
+        }
+        world = newWorld;
     }
 }

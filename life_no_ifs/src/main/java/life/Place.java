@@ -1,5 +1,11 @@
 package life;
 
+import org.apache.commons.collections4.CollectionUtils;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 public final class Place {
     private final int rowNumber;
     private final int columnNumber;
@@ -36,5 +42,24 @@ public final class Place {
 
     public int getColumnNumber() {
         return columnNumber;
+    }
+
+    public void evolve(Set<Place> world, HashSet<Place> newWorld) {
+        final HashSet<Place> placesForNeighbours = new HashSet<Place>();
+        placesForNeighbours.add(new Place(rowNumber - 1, columnNumber - 1));
+        placesForNeighbours.add(new Place(rowNumber - 1, columnNumber));
+        placesForNeighbours.add(new Place(rowNumber - 1, columnNumber + 1));
+        placesForNeighbours.add(new Place(rowNumber, columnNumber - 1));
+        placesForNeighbours.add(new Place(rowNumber, columnNumber + 1));
+        placesForNeighbours.add(new Place(rowNumber + 1, columnNumber - 1));
+        placesForNeighbours.add(new Place(rowNumber + 1, columnNumber));
+        placesForNeighbours.add(new Place(rowNumber + 1, columnNumber + 1));
+
+        final Collection<Place> neighbours = CollectionUtils.intersection(world, placesForNeighbours);
+        Cell cell = new LiveCellWith0Neighbours(this);
+        for (Place neighbour : neighbours) {
+            cell = cell.addNeigbour();
+        }
+        cell.addYourselfToNewWorld(newWorld);
     }
 }
