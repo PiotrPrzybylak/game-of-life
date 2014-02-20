@@ -1,10 +1,6 @@
 package life;
 
-import org.apache.commons.collections4.CollectionUtils;
-
-import java.util.Collection;
 import java.util.HashSet;
-import java.util.Set;
 
 public final class Place {
     private final int rowNumber;
@@ -44,22 +40,16 @@ public final class Place {
         return columnNumber;
     }
 
-    public void evolve(Set<Place> world, HashSet<Place> newWorld) {
-        final HashSet<Place> placesForNeighbours = new HashSet<Place>();
-        placesForNeighbours.add(new Place(rowNumber - 1, columnNumber - 1));
-        placesForNeighbours.add(new Place(rowNumber - 1, columnNumber));
-        placesForNeighbours.add(new Place(rowNumber - 1, columnNumber + 1));
-        placesForNeighbours.add(new Place(rowNumber, columnNumber - 1));
-        placesForNeighbours.add(new Place(rowNumber, columnNumber + 1));
-        placesForNeighbours.add(new Place(rowNumber + 1, columnNumber - 1));
-        placesForNeighbours.add(new Place(rowNumber + 1, columnNumber));
-        placesForNeighbours.add(new Place(rowNumber + 1, columnNumber + 1));
-
-        final Collection<Place> neighbours = CollectionUtils.intersection(world, placesForNeighbours);
-        Cell cell = new LiveCellWith0Neighbours(this);
-        for (Place neighbour : neighbours) {
-            cell = cell.addNeigbour();
-        }
-        cell.addYourselfToNewWorld(newWorld);
+    public HashSet<Place> getNeighbours() {
+        final HashSet<Place> neighbours = new HashSet<Place>();
+        neighbours.add(new Place(rowNumber - 1, columnNumber - 1));
+        neighbours.add(new Place(rowNumber - 1, columnNumber));
+        neighbours.add(new Place(rowNumber - 1, columnNumber + 1));
+        neighbours.add(new Place(rowNumber, columnNumber - 1));
+        neighbours.add(new Place(rowNumber, columnNumber + 1));
+        neighbours.add(new Place(rowNumber + 1, columnNumber - 1));
+        neighbours.add(new Place(rowNumber + 1, columnNumber));
+        neighbours.add(new Place(rowNumber + 1, columnNumber + 1));
+        return neighbours;
     }
 }

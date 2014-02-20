@@ -1,5 +1,8 @@
 package life;
 
+import org.apache.commons.collections4.CollectionUtils;
+
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,8 +44,19 @@ public class Life {
     public void evolve() {
         final HashSet<Place> newWorld = new HashSet<Place>();
         for(Place cell: world) {
-            cell.evolve(world, newWorld);
+            evolve(cell, world, newWorld);
         }
         world = newWorld;
+    }
+
+
+    private static void evolve(Place place, Set<Place> oldWorld, HashSet<Place> newWorld) {
+        final HashSet<Place> placesForNeighbours = place.getNeighbours();
+        final Collection<Place> neighbours = CollectionUtils.intersection(oldWorld, placesForNeighbours);
+        Cell cell = new LiveCellWith0Neighbours(place);
+        for (Place neighbour : neighbours) {
+            cell = cell.addNeigbour();
+        }
+        cell.addYourselfToNewWorld(newWorld);
     }
 }
